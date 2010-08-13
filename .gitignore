@@ -1,3 +1,4 @@
+config/test.conf
 dist/
 target/
 lib_managed/
