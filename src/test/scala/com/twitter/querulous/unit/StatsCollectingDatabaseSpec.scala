@@ -9,7 +9,6 @@ import com.twitter.querulous.test.{FakeStatsCollector, FakeDatabase}
 import com.twitter.xrayspecs.Time
 import com.twitter.xrayspecs.TimeConversions._
 
-
 class StatsCollectingDatabaseSpec extends Specification with JMocker with ClassMocker {
   "StatsCollectingDatabase" should {
     Time.freeze()

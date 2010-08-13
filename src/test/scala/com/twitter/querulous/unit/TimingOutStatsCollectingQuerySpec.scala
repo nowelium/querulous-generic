@@ -8,7 +8,6 @@ import com.twitter.querulous.query.TimingOutStatsCollectingQuery
 import com.twitter.xrayspecs.Time
 import com.twitter.xrayspecs.TimeConversions._
 
-
 class TimingOutStatsCollectingQuerySpec extends Specification with JMocker {
   "TimingOutStatsCollectingQuery" should {
     Time.freeze()
