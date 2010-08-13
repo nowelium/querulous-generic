@@ -7,7 +7,8 @@ import com.twitter.xrayspecs.TimeConversions._
 import com.twitter.querulous.database.ApachePoolingDatabaseFactory
 import com.twitter.querulous.query._
 import com.twitter.querulous.evaluator.{StandardQueryEvaluatorFactory, QueryEvaluator}
-
+import com.twitter.querulous.exception.TooManyQueryParametersException
+import com.twitter.querulous.exception.TooFewQueryParametersException
 
 class QuerySpec extends Specification {
   Configgy.configure("config/" + System.getProperty("stage", "test") + ".conf")

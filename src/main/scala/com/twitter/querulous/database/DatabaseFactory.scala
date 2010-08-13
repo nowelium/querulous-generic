@@ -14,17 +14,20 @@ object DatabaseFactory {
       config("test_idle_msec").toLong.millis,
       config("max_wait").toLong.millis,
       config("test_on_borrow").toBoolean,
-      config("min_evictable_idle_msec").toLong.millis)
+      config("min_evictable_idle_msec").toLong.millis
+    )
     statsCollector.foreach { stats =>
       factory = new StatsCollectingDatabaseFactory(factory, stats)
     }
     config.getConfigMap("timeout").foreach { timeoutConfig =>
-      factory = new TimingOutDatabaseFactory(factory,
+      factory = new TimingOutDatabaseFactory(
+        factory,
         timeoutConfig("pool_size").toInt,
         timeoutConfig("queue_size").toInt,
         timeoutConfig("open").toLong.millis,
         timeoutConfig("initialize").toLong.millis,
-        config("size_max").toInt)
+        config("size_max").toInt
+      )
     }
     new MemoizingDatabaseFactory(factory)
   }
