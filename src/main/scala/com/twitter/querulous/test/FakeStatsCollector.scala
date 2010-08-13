@@ -1,6 +1,6 @@
-package com.twitter.querulous
-package test
+package com.twitter.querulous.test
 
+import com.twitter.querulous.StatsCollector
 import scala.collection.mutable.Map
 import com.twitter.xrayspecs.Time
 import com.twitter.xrayspecs.TimeConversions._

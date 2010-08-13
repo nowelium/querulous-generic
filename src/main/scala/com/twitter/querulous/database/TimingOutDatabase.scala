@@ -1,21 +1,23 @@
-package com.twitter.querulous
-package database
+package com.twitter.querulous.database
 
-import java.sql.{Connection, SQLException}
-import java.util.concurrent.{TimeoutException => JTimeoutException, _}
+import java.sql.Connection
 import com.twitter.xrayspecs.Duration
+import com.twitter.querulous.exception.TimeoutException
+import com.twitter.querulous.exception.SqlDatabaseTimeoutException
+import com.twitter.querulous.FutureTimeout
 import net.lag.logging.Logger
 
+class TimingOutDatabase(
+  database: Database,
+  jdbcDriver: String,
+  jdbcUrl: String,
+  poolSize: Int,
+  queueSize: Int,
+  openTimeout: Duration,
+  initialTimeout: Duration,
+  maxConnections: Int
+) extends Database {
 
-class SqlDatabaseTimeoutException(msg: String) extends SQLException(msg)
-
-class TimingOutDatabaseFactory(databaseFactory: DatabaseFactory, poolSize: Int, queueSize: Int, openTimeout: Duration, initialTimeout: Duration, maxConnections: Int) extends DatabaseFactory {
-  def apply(jdbcDriver: String, jdbcUrl: String, username: String, password: String) = {
-    new TimingOutDatabase(databaseFactory(jdbcDriver, jdbcUrl, username, password), jdbcDriver, jdbcUrl, poolSize, queueSize, openTimeout, initialTimeout, maxConnections)
-  }
-}
-
-class TimingOutDatabase(database: Database, jdbcDriver: String, jdbcUrl: String, poolSize: Int, queueSize: Int, openTimeout: Duration, initialTimeout: Duration, maxConnections: Int) extends Database {
   private val timeout = new FutureTimeout(poolSize, queueSize)
   private val log = Logger.get(getClass.getName)
 

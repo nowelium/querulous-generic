@@ -4,12 +4,6 @@ import java.sql.{PreparedStatement, ResultSet, SQLException, Timestamp, Types, C
 import java.util.regex.Pattern
 import scala.collection.mutable
 
-class SqlQueryFactory extends QueryFactory {
-  def apply(connection: Connection, query: String, params: Any*) = {
-    new SqlQuery(connection, query, params: _*)
-  }
-}
-
 class TooFewQueryParametersException extends Exception
 class TooManyQueryParametersException extends Exception
 

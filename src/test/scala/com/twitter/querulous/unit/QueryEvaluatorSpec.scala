@@ -6,6 +6,7 @@ import net.lag.configgy.{Config, Configgy}
 import com.twitter.querulous.database.{ApachePoolingDatabaseFactory, MemoizingDatabaseFactory, Database}
 import com.twitter.querulous.evaluator.{StandardQueryEvaluator, StandardQueryEvaluatorFactory, QueryEvaluator}
 import com.twitter.querulous.query._
+import com.twitter.querulous.StatsCollector
 import com.twitter.querulous.test.FakeDatabase
 import com.twitter.xrayspecs.Time
 import com.twitter.xrayspecs.TimeConversions._
@@ -15,7 +16,7 @@ import org.specs.mock.{ClassMocker, JMocker}
 
 class QueryEvaluatorSpec extends Specification with JMocker with ClassMocker {
   Configgy.configure("config/test.conf")
-  import TestEvaluator._
+  import com.twitter.querulous.TestEvaluator._
 
   "QueryEvaluator" should {
     val queryEvaluator = testEvaluatorFactory("org.hsqldb.jdbcDriver", "jdbc:hsqldb:mem:querulous", "sa", "")

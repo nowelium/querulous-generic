@@ -1,12 +1,11 @@
-package com.twitter.querulous
-package evaluator
+package com.twitter.querulous.evaluator
 
+import com.twitter.querulous.StatsCollector
 import java.sql.ResultSet
 import com.twitter.xrayspecs.TimeConversions._
 import net.lag.configgy.ConfigMap
-import database._
-import query._
-
+import com.twitter.querulous.database._
+import com.twitter.querulous.query._
 
 object QueryEvaluatorFactory {
   def fromConfig(config: ConfigMap, databaseFactory: DatabaseFactory, queryFactory: QueryFactory): QueryEvaluatorFactory = {

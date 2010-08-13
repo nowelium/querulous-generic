@@ -12,7 +12,7 @@ import com.twitter.querulous.evaluator.{StandardQueryEvaluatorFactory, QueryEval
 class TimeoutSpec extends Specification {
   Configgy.configure("config/test.conf")
 
-  import TestEvaluator._
+  import com.twitter.querulous.TestEvaluator._
 
   val config = Configgy.config.configMap("db")
   val username = config("username")
@@ -21,10 +21,10 @@ class TimeoutSpec extends Specification {
   val timingOutQueryFactory = new TimingOutQueryFactory(testQueryFactory, timeout)
   val timingOutQueryEvaluatorFactory = new StandardQueryEvaluatorFactory(testDatabaseFactory, timingOutQueryFactory)
 
+  doBefore {
+    testEvaluatorFactory("org.hsqldb.jdbcDriver", "jdbc:hsqldb:mem:querulous", username, password).execute("CREATE DATABASE IF NOT EXISTS db_test")
+  }
   "Timeouts" should {
-    doBefore {
-      testEvaluatorFactory("org.hsqldb.jdbcDriver", "jdbc:hsqldb:mem:querulous", username, password).execute("CREATE DATABASE IF NOT EXISTS db_test")
-    }
 //
 //    "honor timeouts" in {
 //      val queryEvaluator1 = testEvaluatorFactory("", "db_test", username, password)
