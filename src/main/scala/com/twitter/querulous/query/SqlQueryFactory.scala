@@ -1,7 +1,6 @@
 package com.twitter.querulous.query
 
-import java.sql.{PreparedStatement, ResultSet, SQLException, Timestamp, Types, Connection}
-import java.util.regex.Pattern
+import java.sql.Connection
 import scala.collection.mutable
 
 class SqlQueryFactory extends QueryFactory {
@@ -9,3 +8,4 @@ class SqlQueryFactory extends QueryFactory {
     new SqlQuery(connection, query, params: _*)
   }
 }
+

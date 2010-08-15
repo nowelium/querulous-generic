@@ -21,6 +21,10 @@ class Transaction(queryFactory: QueryFactory, connection: Connection) extends Qu
     queryFactory(connection, query, params: _*).execute()
   }
 
+  def call[A](query: String, params: Any*)(f: ResultSet => A) = {
+    queryFactory(connection, query, params: _*).call(f)
+  }
+
   def begin() = {
     connection.setAutoCommit(false)
   }

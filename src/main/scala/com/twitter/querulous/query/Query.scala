@@ -11,5 +11,6 @@ import net.lag.logging.Logger
 trait Query {
   def select[A](f: ResultSet => A): Seq[A]
   def execute(): Int
+  def call[A](f: ResultSet => A): Seq[A]
   def cancel()
 }

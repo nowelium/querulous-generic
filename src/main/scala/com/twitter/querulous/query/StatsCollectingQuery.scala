@@ -15,6 +15,11 @@ class StatsCollectingQuery(query: Query, stats: StatsCollector) extends QueryPro
     delegate(query.execute())
   }
 
+  override def call[A](f: ResultSet => A) = {
+    stats.incr("db-procedure-count", 1)
+    delegate(query.call(f))
+  }
+
   override def delegate[A](f: => A) = {
     stats.time("db-timing")(f)
   }

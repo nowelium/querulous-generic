@@ -18,6 +18,10 @@ abstract class QueryEvaluatorProxy(queryEvaluator: QueryEvaluator) extends Query
     delegate(queryEvaluator.execute(query, params: _*))
   }
 
+  def call[A](query: String, params: Any*)(f: ResultSet => A) = {
+    delegate(queryEvaluator.call(query, params: _*)(f))
+  }
+
   def count(query: String, params: Any*) = {
     delegate(queryEvaluator.count(query, params: _*))
   }

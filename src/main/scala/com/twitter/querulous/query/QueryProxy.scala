@@ -7,6 +7,8 @@ abstract class QueryProxy(query: Query) extends Query {
 
   def execute() = delegate(query.execute())
 
+  def call[A](f: ResultSet => A) = delegate(query.call(f))
+
   def cancel() = query.cancel()
 
   protected def delegate[A](f: => A) = f

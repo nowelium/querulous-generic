@@ -19,6 +19,11 @@ class TimingOutStatsCollectingQuery(query: Query, queryName: String, stats: Stat
     stats.time("db-execute-timing")(delegate(query.execute()))
   }
 
+  override def call[A](f: ResultSet => A) = {
+    stats.incr("db-procedure-count", 1)
+    stats.time("db-procedure-timing")(delegate(query.call(f)))
+  }
+
   override def delegate[A](f: => A) = {
     stats.incr("db-query-count-" + queryName, 1)
     stats.time("db-timing") {

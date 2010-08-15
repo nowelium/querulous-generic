@@ -1,8 +1,5 @@
 package com.twitter.querulous.database
 
-import java.sql.{SQLException, Connection}
-import org.apache.commons.dbcp.{PoolableConnectionFactory, DriverManagerConnectionFactory, PoolingDataSource}
-import org.apache.commons.pool.impl.{GenericObjectPool}
 import com.twitter.xrayspecs.Duration
 
 class ApachePoolingDatabaseFactory(
@@ -12,7 +9,8 @@ class ApachePoolingDatabaseFactory(
   checkConnectionHealthWhenIdleFor: Duration,
   maxWaitForConnectionReservation: Duration,
   checkConnectionHealthOnReservation: Boolean,
-  evictConnectionIfIdleFor: Duration) extends DatabaseFactory {
+  evictConnectionIfIdleFor: Duration
+) extends DatabaseFactory {
 
   def apply(jdbcDriver: String, jdbcUrl: String, username: String, password: String) = {
     val pool = new ApachePoolingDatabase(
@@ -31,3 +29,4 @@ class ApachePoolingDatabaseFactory(
     pool
   }
 }
+

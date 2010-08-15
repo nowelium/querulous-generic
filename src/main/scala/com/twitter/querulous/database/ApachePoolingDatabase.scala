@@ -16,7 +16,8 @@ class ApachePoolingDatabase(
   checkConnectionHealthWhenIdleFor: Duration,
   maxWaitForConnectionReservation: Duration,
   checkConnectionHealthOnReservation: Boolean,
-  evictConnectionIfIdleFor: Duration) extends Database {
+  evictConnectionIfIdleFor: Duration
+) extends Database {
 
   Class.forName(jdbcDriver)
 
@@ -55,3 +56,4 @@ class ApachePoolingDatabase(
 
   override def toString = jdbcUrl
 }
+

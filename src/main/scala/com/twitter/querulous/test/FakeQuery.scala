@@ -12,4 +12,9 @@ class FakeQuery(resultSets: Seq[ResultSet]) extends Query {
   }
 
   override def execute() = 0
+  
+  override def call[A](f: ResultSet => A) = {
+    resultSets.map(f)
+  }
 }
+

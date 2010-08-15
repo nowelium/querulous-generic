@@ -8,6 +8,8 @@ class MemoizingDatabaseFactory(databaseFactory: DatabaseFactory) extends Databas
   def apply(jdbcDriver: String, jdbcUrl: String, username: String, password: String) = synchronized {
     databases.getOrElseUpdate(
       jdbcUrl,
-      databaseFactory(jdbcDriver, jdbcUrl, username, password))
+      databaseFactory(jdbcDriver, jdbcUrl, username, password)
+    )
   }
 }
+
