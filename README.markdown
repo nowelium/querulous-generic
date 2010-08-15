@@ -60,6 +60,26 @@ Run a query in a transaction for enhanced pleasure:
 
 The yielded transaction object implements the same interface as QueryEvaluator. Note that the transaction will be rolled back if you raise an exception.
 
+#### Procedure call
+
+Procedure(mysql):
+
+    delimiter //
+    create procedure hoge(IN _a varchar(255))
+    begin
+      select _a;
+    end;
+    delimiter ;
+
+run:
+
+    val queryEvaluator = factory("com.mysql.jdbc.Driver", "jdbc:mysql://localhost/example", "username", "password")
+    queryEvaluator.transaction { tx =>
+      tx.call("{CALL hoge(?)", "hello world") { row =>
+        println("row.getString(1)")
+      }
+    }
+
 ### Advanced Usage
 
 For production-quality use of `Querulous` you'll want to set configuration options and layer-on more functionality. Here is the maximally configurable, if somewhat elaborate, way to instantiate a QueryEvaluator
