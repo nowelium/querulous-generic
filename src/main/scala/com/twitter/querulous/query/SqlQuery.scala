@@ -38,6 +38,9 @@ class SqlQuery(connection: Connection, query: String, params: Any*) extends Quer
     withStatement(statement, { 
       statement.executeUpdate()
       val rs = statement.getResultSet
+      if(null == rs){
+        return Nil
+      }
       try {
         val finalResult = new mutable.ArrayBuffer[A]
         while (rs.next()) {
